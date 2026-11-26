@@ -1,0 +1,7 @@
+# Orca sessions
+
+Use Orca when the user wants delivery to an Orca session. Resolve the CLI using the installed Orca CLI guide and read its version-matched instructions with `orca skills get orca-cli --json`. The ordinary local workflow works without Orca.
+
+- If an explicit Orca launch in the same workspace produced a structured chat, capture `result.outcome.sessionId` and its `result.worktreeId` from the launch receipt. Confirm that the workspace matches the handoff and use `orca_session_id:<sessionId>` as the chat address. Keep this identifier for returning to the original chat. For an already running agent, use the scoped `agent list` and `agent show` commands and confirm the intended agent when there is ambiguity. Terminal agents use their terminal handle for delivery.
+- Save the packet first with `put --session <address>`. When the user authorizes delivery, follow the CLI guide's `orchestration send --type handoff` command to that exact address. Send the packet ID and workspace, with a request to receive it using this skill and `take --id <uuid> --session <address>`. Acknowledging uses the same selection.
+- A send receipt confirms delivery status. A receiver response or acknowledged packet confirms consumption. If delivery is unavailable, give the user the saved packet ID for `take --offline --id <uuid>` in the same folder. Keep the packet available after an uncertain delivery.
